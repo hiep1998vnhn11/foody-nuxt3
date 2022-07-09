@@ -19,10 +19,11 @@ const generateItems = async (count: number) => {
   loading.value = true
   await new Promise((resolve) => setTimeout(resolve, 500))
   loading.value = false
+  const time = Date.now()
   return Array.from({ length: count }, (_, i) => ({
     ...defaultItem,
-    name: `${defaultItem.name} ${i + 1}`,
-    image: defaultItem.image + '?t=' + i,
+    name: `${defaultItem.name} ${time + i + 1}`,
+    image: defaultItem.image + '?t=' + (time + i),
     tags: defaultItem.tags.slice(0, Math.floor(Math.random() * 3) + 1),
   }))
 }
