@@ -7,11 +7,9 @@ export interface IMenuItem {
 }
 
 const menus = computed((): IMenuItem[] => [
-  { type: 'link', text: 'Blank', route: { name: 'blank' } },
-  { type: 'link', text: 'test', route: { name: 'test' } },
-  { type: 'link', text: 'post', route: { name: 'post' } },
-  { type: 'link', text: 'setting', route: { name: 'setting' } },
-  { type: 'link', text: 'about', route: { name: 'about' } },
+  { type: 'link', text: 'Home', route: { name: 'index' } },
+  { type: 'link', text: 'Post', route: { name: 'post' } },
+  { type: 'link', text: 'Dashboard', route: { name: 'dashboard' } },
   {
     type: 'button',
     text: 'dashboard',
