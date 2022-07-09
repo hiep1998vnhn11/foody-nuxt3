@@ -42,6 +42,10 @@ onMounted(async () => {
 </script>
 <template>
   <div class="container">
+    <h1 class="text-bold text-3xl mb-2">
+      Nuxtapp Demo some card items with lazyload and intersection observer
+    </h1>
+    <h2>This page was using Static server image</h2>
     <div>
       <div class="grid grid-cols-5 gap-2">
         <div

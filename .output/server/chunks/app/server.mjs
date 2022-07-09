@@ -3640,7 +3640,7 @@ const Components = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePr
   Html,
   Body
 }, Symbol.toStringTag, { value: "Module" }));
-const metaConfig = { "globalMeta": { "charset": "utf-8", "viewport": "width=device-width, initial-scale=1", "meta": [], "link": [], "style": [], "script": [] } };
+const metaConfig = { "globalMeta": { "charset": "utf-8", "viewport": "width=device-width, initial-scale=1", "meta": [{ "charset": "utf-8" }, { "name": "viewport", "content": "width=device-width, initial-scale=1" }, { "property": "og:title", "content": "NuxtApp - Build for production" }, { "property": "og:description", "content": "An nuxt app build for production testing performance" }, { "property": "og:type", "content": "aecomapp:nuxt" }, { "property": "og:url", "content": "https://nuxt.aecomapp.com" }, { "property": "og:image", "content": "https://nuxt.aecomapp.com/nem.jpeg" }, { "property": "og:site_name", "content": "NuxtApp" }, { "property": "og:locale", "content": "vi_VN" }, { "hid": "description", "name": "description", "content": "An nuxt app build for production testing performance" }], "link": [{ "rel": "icon", "type": "image/x-icon", "href": "/favicon.ico?t=123" }], "style": [], "script": [], "title": "NuxtApp - Build for production" } };
 const metaMixin = {
   created() {
     const instance = vue_cjs_prod.getCurrentInstance();
@@ -3880,7 +3880,7 @@ const _sfc_main$p = /* @__PURE__ */ vue_cjs_prod.defineComponent({
     return (_ctx, _push, _parent, _attrs) => {
       const _component_SkeletonCard = __nuxt_component_0$2;
       const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
-      _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
+      _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using mix CDN and static image</h2><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
         _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
           class: "w-full",
@@ -3951,7 +3951,7 @@ const _sfc_main$o = /* @__PURE__ */ vue_cjs_prod.defineComponent({
     return (_ctx, _push, _parent, _attrs) => {
       const _component_SkeletonCard = __nuxt_component_0$2;
       const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
-      _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
+      _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using CDN image</h2><div><div class="grid md:grid-cols-5 gap-2 grid-cols-2 sm:grid-cols-3"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
         _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
           class: "w-full",
@@ -4022,7 +4022,7 @@ const _sfc_main$n = /* @__PURE__ */ vue_cjs_prod.defineComponent({
     return (_ctx, _push, _parent, _attrs) => {
       const _component_SkeletonCard = __nuxt_component_0$2;
       const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
-      _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
+      _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using Static server image</h2><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
         _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
           class: "w-full",
@@ -4664,7 +4664,7 @@ const _sfc_main$e = /* @__PURE__ */ vue_cjs_prod.defineComponent({
     return (_ctx, _push, _parent, _attrs) => {
       const _component_SkeletonCard = __nuxt_component_0$2;
       const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
-      _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
+      _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using mix CDN and static image</h2><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
         _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
           class: "w-full",
@@ -4738,7 +4738,7 @@ const _sfc_main$d = /* @__PURE__ */ vue_cjs_prod.defineComponent({
     return (_ctx, _push, _parent, _attrs) => {
       const _component_SkeletonCard = __nuxt_component_0$2;
       const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
-      _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
+      _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using CDN image</h2><div><div class="grid md:grid-cols-5 gap-2 grid-cols-2 sm:grid-cols-3"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
         _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
           class: "w-full",
@@ -4812,7 +4812,7 @@ const _sfc_main$c = /* @__PURE__ */ vue_cjs_prod.defineComponent({
     return (_ctx, _push, _parent, _attrs) => {
       const _component_SkeletonCard = __nuxt_component_0$2;
       const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
-      _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
+      _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using Static server image</h2><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
         _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
           class: "w-full",
