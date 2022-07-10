@@ -1,5 +1,9 @@
 @import 'variables';
 
+img {
+  aspect-ratio: attr(width) / attr(height);
+}
+
 body,
 * {
   font-family: $fontFamily !important;

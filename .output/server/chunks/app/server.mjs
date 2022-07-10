@@ -3955,7 +3955,9 @@ const _sfc_main$o = /* @__PURE__ */ vue_cjs_prod.defineComponent({
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
         _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
           class: "w-full",
-          alt: "Sunset in the mountains"
+          alt: "Sunset in the mountains",
+          width: "750",
+          height: "400"
         }, serverRenderer.exports.ssrGetDirectiveProps(_ctx, _directive_lazy, item.image)))}><div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
         serverRenderer.exports.ssrRenderList(item.tags, (tag) => {
           _push(`<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> #${serverRenderer.exports.ssrInterpolate(tag)}</span>`);
@@ -4026,7 +4028,9 @@ const _sfc_main$n = /* @__PURE__ */ vue_cjs_prod.defineComponent({
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
         _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
           class: "w-full",
-          alt: "Sunset in the mountains"
+          alt: "Sunset in the mountains",
+          width: "750",
+          height: "400"
         }, serverRenderer.exports.ssrGetDirectiveProps(_ctx, _directive_lazy, item.image)))}><div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
         serverRenderer.exports.ssrRenderList(item.tags, (tag) => {
           _push(`<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> #${serverRenderer.exports.ssrInterpolate(tag)}</span>`);
@@ -4742,7 +4746,9 @@ const _sfc_main$d = /* @__PURE__ */ vue_cjs_prod.defineComponent({
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
         _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
           class: "w-full",
-          alt: "Sunset in the mountains"
+          alt: "Sunset in the mountains",
+          width: "750",
+          height: "400"
         }, serverRenderer.exports.ssrGetDirectiveProps(_ctx, _directive_lazy, item.image)))}><div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
         serverRenderer.exports.ssrRenderList(item.tags, (tag) => {
           _push(`<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> #${serverRenderer.exports.ssrInterpolate(tag)}</span>`);
@@ -4816,7 +4822,9 @@ const _sfc_main$c = /* @__PURE__ */ vue_cjs_prod.defineComponent({
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
         _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
           class: "w-full",
-          alt: "Sunset in the mountains"
+          alt: "Sunset in the mountains",
+          width: "750",
+          height: "400"
         }, serverRenderer.exports.ssrGetDirectiveProps(_ctx, _directive_lazy, item.image)))}><div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
         serverRenderer.exports.ssrRenderList(item.tags, (tag) => {
           _push(`<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> #${serverRenderer.exports.ssrInterpolate(tag)}</span>`);
