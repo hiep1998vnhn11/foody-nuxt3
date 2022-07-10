@@ -1,5 +1,5 @@
 import { v as vue_cjs_prod, s as serverRenderer, r as require$$0 } from '../handlers/renderer.mjs';
-import { hasProtocol, isEqual, withBase, withQuery, joinURL } from 'ufo';
+import { hasProtocol, isEqual, withLeadingSlash, joinURL, parseURL, encodeParam, withBase, withQuery, encodePath } from 'ufo';
 import { defineStore, createPinia, setActivePinia } from 'pinia/dist/pinia.mjs';
 import { u as useRuntimeConfig$1 } from '../nitro/node-server.mjs';
 import 'h3';
@@ -19,6 +19,8 @@ import 'unstorage';
 import 'fs';
 import 'pathe';
 import 'url';
+import 'node:url';
+import 'ipx';
 
 function u$1(r,n,...a){if(r in n){let e=n[r];return typeof e=="function"?e(...a):e}let t=new Error(`Tried to handle "${r}" but there is no handler defined. Only defined handlers are: ${Object.keys(n).map(e=>`"${e}"`).join(", ")}.`);throw Error.captureStackTrace&&Error.captureStackTrace(t,u$1),t}
 
@@ -260,9 +262,9 @@ const _globalThis$2 = function() {
   }
   throw new Error("unable to locate global object");
 }();
-const fetch = _globalThis$2.fetch || (() => Promise.reject(new Error("[ohmyfetch] global.fetch is not supported!")));
+const fetch$1 = _globalThis$2.fetch || (() => Promise.reject(new Error("[ohmyfetch] global.fetch is not supported!")));
 const Headers = _globalThis$2.Headers;
-const $fetch = createFetch({ fetch, Headers });
+const $fetch = createFetch({ fetch: fetch$1, Headers });
 const appConfig = useRuntimeConfig$1().app;
 const baseURL = () => appConfig.baseURL;
 function flatHooks(configHooks, hooks = {}, parentName) {
@@ -705,7 +707,7 @@ var vueRouter_prod = {};
   const isArray2 = Array.isArray;
   const TRAILING_SLASH_RE = /\/$/;
   const removeTrailingSlash = (path) => path.replace(TRAILING_SLASH_RE, "");
-  function parseURL(parseQuery2, location2, currentLocation = "/") {
+  function parseURL2(parseQuery2, location2, currentLocation = "/") {
     let path, query = {}, searchString = "", hash = "";
     const hashPos = location2.indexOf("#");
     let searchPos = location2.indexOf("?");
@@ -1126,7 +1128,7 @@ var vueRouter_prod = {};
     const options = assign({}, BASE_PATH_PARSER_OPTIONS, extraOptions);
     const score = [];
     let pattern = options.start ? "^" : "";
-    const keys = [];
+    const keys2 = [];
     for (const segment of segments) {
       const segmentScores = segment.length ? [] : [90];
       if (options.strict && !segment.length)
@@ -1141,7 +1143,7 @@ var vueRouter_prod = {};
           subSegmentScore += 40;
         } else if (token.type === 1) {
           const { value, repeatable, optional, regexp } = token;
-          keys.push({
+          keys2.push({
             name: value,
             repeatable,
             optional
@@ -1191,7 +1193,7 @@ var vueRouter_prod = {};
         return null;
       for (let i = 1; i < match.length; i++) {
         const value = match[i] || "";
-        const key = keys[i - 1];
+        const key = keys2[i - 1];
         params[key.name] = value && key.repeatable ? value.split("/") : value;
       }
       return params;
@@ -1233,7 +1235,7 @@ var vueRouter_prod = {};
     return {
       re,
       score,
-      keys,
+      keys: keys2,
       parse,
       stringify
     };
@@ -1546,9 +1548,9 @@ var vueRouter_prod = {};
     routes2.forEach((route) => addRoute(route));
     return { addRoute, resolve, removeRoute, getRoutes, getRecordMatcher };
   }
-  function paramsFromLocation(params, keys) {
+  function paramsFromLocation(params, keys2) {
     const newParams = {};
-    for (const key of keys) {
+    for (const key of keys2) {
       if (key in params)
         newParams[key] = params[key];
     }
@@ -1629,11 +1631,11 @@ var vueRouter_prod = {};
   function encodeQueryKey(text) {
     return encodeQueryValue(text).replace(EQUAL_RE, "%3D");
   }
-  function encodePath(text) {
+  function encodePath2(text) {
     return commonEncode(text).replace(HASH_RE, "%23").replace(IM_RE, "%3F");
   }
-  function encodeParam(text) {
-    return text == null ? "" : encodePath(text).replace(SLASH_RE, "%2F");
+  function encodeParam2(text) {
+    return text == null ? "" : encodePath2(text).replace(SLASH_RE, "%2F");
   }
   function decode(text) {
     try {
@@ -1703,21 +1705,21 @@ var vueRouter_prod = {};
   const routeLocationKey = Symbol("");
   const routerViewLocationKey = Symbol("");
   function useCallbacks() {
-    let handlers = [];
+    let handlers2 = [];
     function add(handler) {
-      handlers.push(handler);
+      handlers2.push(handler);
       return () => {
-        const i = handlers.indexOf(handler);
+        const i = handlers2.indexOf(handler);
         if (i > -1)
-          handlers.splice(i, 1);
+          handlers2.splice(i, 1);
       };
     }
     function reset() {
-      handlers = [];
+      handlers2 = [];
     }
     return {
       add,
-      list: () => handlers,
+      list: () => handlers2,
       reset
     };
   }
@@ -2010,7 +2012,7 @@ var vueRouter_prod = {};
     const currentRoute = vue.shallowRef(START_LOCATION_NORMALIZED);
     let pendingLocation = START_LOCATION_NORMALIZED;
     const normalizeParams = applyToParams.bind(null, (paramValue) => "" + paramValue);
-    const encodeParams = applyToParams.bind(null, encodeParam);
+    const encodeParams = applyToParams.bind(null, encodeParam2);
     const decodeParams = applyToParams.bind(null, decode);
     function addRoute(parentOrRoute, route) {
       let parent;
@@ -2038,7 +2040,7 @@ var vueRouter_prod = {};
     function resolve(rawLocation, currentLocation) {
       currentLocation = assign({}, currentLocation || currentRoute.value);
       if (typeof rawLocation === "string") {
-        const locationNormalized = parseURL(parseQuery$1, rawLocation, currentLocation.path);
+        const locationNormalized = parseURL2(parseQuery$1, rawLocation, currentLocation.path);
         const matchedRoute2 = matcher.resolve({ path: locationNormalized.path }, currentLocation);
         const href2 = routerHistory.createHref(locationNormalized.fullPath);
         return assign(locationNormalized, matchedRoute2, {
@@ -2051,7 +2053,7 @@ var vueRouter_prod = {};
       let matcherLocation;
       if ("path" in rawLocation) {
         matcherLocation = assign({}, rawLocation, {
-          path: parseURL(parseQuery$1, rawLocation.path, currentLocation.path).path
+          path: parseURL2(parseQuery$1, rawLocation.path, currentLocation.path).path
         });
       } else {
         const targetParams = assign({}, rawLocation.params);
@@ -2083,7 +2085,7 @@ var vueRouter_prod = {};
       });
     }
     function locationAsObject(to) {
-      return typeof to === "string" ? parseURL(parseQuery$1, to, currentRoute.value.path) : assign({}, to);
+      return typeof to === "string" ? parseURL2(parseQuery$1, to, currentRoute.value.path) : assign({}, to);
     }
     function checkCanceledNavigation(to, from) {
       if (pendingLocation !== to) {
@@ -3190,7 +3192,7 @@ var setAttrs = (el, attrs) => {
       }
     }
   }
-  const keys = [];
+  const keys2 = [];
   for (const key in attrs) {
     const value = attrs[key];
     if (value == null)
@@ -3200,10 +3202,10 @@ var setAttrs = (el, attrs) => {
     } else {
       el.setAttribute(key, value);
     }
-    keys.push(key);
+    keys2.push(key);
   }
-  if (keys.length) {
-    el.setAttribute(HEAD_ATTRS_KEY, keys.join(","));
+  if (keys2.length) {
+    el.setAttribute(HEAD_ATTRS_KEY, keys2.join(","));
   } else {
     el.removeAttribute(HEAD_ATTRS_KEY);
   }
@@ -3732,17 +3734,17 @@ const _export_sfc = (sfc, props) => {
 };
 const meta$6 = void 0;
 const meta$5 = void 0;
-const _sfc_main$q = {};
-function _sfc_ssrRender$8(_ctx, _push, _parent, _attrs) {
+const _sfc_main$r = {};
+function _sfc_ssrRender$9(_ctx, _push, _parent, _attrs) {
   _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "animate-pulse rounded overflow-hidden" }, _attrs))}><div class="w-full bg-gray-300 h-28"></div><div class="flex-1 space-y-6 py-1"><div class="h-6 bg-gray-300 rounded w-3/4"></div><div class="space-y-3"><div class="h-2 bg-gray-300 rounded"></div><div class="grid grid-cols-3 gap-4"><div class="h-2 bg-gray-300 rounded col-span-2"></div><div class="h-2 bg-gray-300 rounded col-span-1"></div></div><div class="h-2 bg-gray-300 rounded"></div></div><div class="h-6 bg-gray-300 rounded-xl w-1/4 inline-block"></div><div class="h-6 bg-gray-300 rounded-xl w-1/2 inline-block mx-3"></div></div></div>`);
 }
-const _sfc_setup$q = _sfc_main$q.setup;
-_sfc_main$q.setup = (props, ctx) => {
+const _sfc_setup$r = _sfc_main$r.setup;
+_sfc_main$r.setup = (props, ctx) => {
   const ssrContext = vue_cjs_prod.useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/SkeletonCard.vue");
-  return _sfc_setup$q ? _sfc_setup$q(props, ctx) : void 0;
+  return _sfc_setup$r ? _sfc_setup$r(props, ctx) : void 0;
 };
-const __nuxt_component_0$2 = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["ssrRender", _sfc_ssrRender$8]]);
+const __nuxt_component_1$2 = /* @__PURE__ */ _export_sfc(_sfc_main$r, [["ssrRender", _sfc_ssrRender$9]]);
 function useObserver(objectObserver) {
   const observer = vue_cjs_prod.ref(null);
   const unObserver = (value) => {
@@ -3841,7 +3843,7 @@ function useScrollObserver(element, callback) {
     observer.value = null;
   });
 }
-const _sfc_main$p = /* @__PURE__ */ vue_cjs_prod.defineComponent({
+const _sfc_main$q = /* @__PURE__ */ vue_cjs_prod.defineComponent({
   __name: "dashboard",
   __ssrInlineRender: true,
   setup(__props) {
@@ -3878,7 +3880,7 @@ const _sfc_main$p = /* @__PURE__ */ vue_cjs_prod.defineComponent({
       items.value = await generateItems(40);
     });
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_SkeletonCard = __nuxt_component_0$2;
+      const _component_SkeletonCard = __nuxt_component_1$2;
       const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
       _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using mix CDN and static image</h2><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
@@ -3905,13 +3907,385 @@ const _sfc_main$p = /* @__PURE__ */ vue_cjs_prod.defineComponent({
     };
   }
 });
+const _sfc_setup$q = _sfc_main$q.setup;
+_sfc_main$q.setup = (props, ctx) => {
+  const ssrContext = vue_cjs_prod.useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("pages/dashboard.vue");
+  return _sfc_setup$q ? _sfc_setup$q(props, ctx) : void 0;
+};
+const meta$4 = void 0;
+function createMapper(map) {
+  return (key) => {
+    return key ? map[key] || key : map.missingValue;
+  };
+}
+function createOperationsGenerator({ formatter, keyMap, joinWith = "/", valueMap } = {}) {
+  if (!formatter) {
+    formatter = (key, value) => `${key}=${value}`;
+  }
+  if (keyMap && typeof keyMap !== "function") {
+    keyMap = createMapper(keyMap);
+  }
+  const map = valueMap || {};
+  Object.keys(map).forEach((valueKey) => {
+    if (typeof map[valueKey] !== "function") {
+      map[valueKey] = createMapper(map[valueKey]);
+    }
+  });
+  return (modifiers = {}) => {
+    const operations = Object.entries(modifiers).filter(([_, value]) => typeof value !== "undefined").map(([key, value]) => {
+      const mapper = map[key];
+      if (typeof mapper === "function") {
+        value = mapper(modifiers[key]);
+      }
+      key = typeof keyMap === "function" ? keyMap(key) : key;
+      return formatter(key, value);
+    });
+    return operations.join(joinWith);
+  };
+}
+function parseSize(input = "") {
+  if (typeof input === "number") {
+    return input;
+  }
+  if (typeof input === "string") {
+    if (input.replace("px", "").match(/^\d+$/g)) {
+      return parseInt(input, 10);
+    }
+  }
+}
+const imageMixin = {
+  props: {
+    src: { type: String, required: true },
+    format: { type: String, default: void 0 },
+    quality: { type: [Number, String], default: void 0 },
+    background: { type: String, default: void 0 },
+    fit: { type: String, default: void 0 },
+    modifiers: { type: Object, default: void 0 },
+    preset: { type: String, default: void 0 },
+    provider: { type: String, default: void 0 },
+    sizes: { type: [Object, String], default: void 0 },
+    preload: { type: Boolean, default: void 0 },
+    width: { type: [String, Number], default: void 0 },
+    height: { type: [String, Number], default: void 0 },
+    alt: { type: String, default: void 0 },
+    referrerpolicy: { type: String, default: void 0 },
+    usemap: { type: String, default: void 0 },
+    longdesc: { type: String, default: void 0 },
+    ismap: { type: Boolean, default: void 0 },
+    crossorigin: { type: [Boolean, String], default: void 0, validator: (val) => ["anonymous", "use-credentials", "", true, false].includes(val) },
+    loading: { type: String, default: void 0 },
+    decoding: { type: String, default: void 0, validator: (val) => ["async", "auto", "sync"].includes(val) }
+  },
+  computed: {
+    nImgAttrs() {
+      return {
+        width: parseSize(this.width),
+        height: parseSize(this.height),
+        alt: this.alt,
+        referrerpolicy: this.referrerpolicy,
+        usemap: this.usemap,
+        longdesc: this.longdesc,
+        ismap: this.ismap,
+        crossorigin: this.crossorigin === true ? "anonymous" : this.crossorigin || void 0,
+        loading: this.loading,
+        decoding: this.decoding
+      };
+    },
+    nModifiers() {
+      return {
+        ...this.modifiers,
+        width: parseSize(this.width),
+        height: parseSize(this.height),
+        format: this.format,
+        quality: this.quality,
+        background: this.background,
+        fit: this.fit
+      };
+    },
+    nOptions() {
+      return {
+        provider: this.provider,
+        preset: this.preset
+      };
+    }
+  }
+};
+async function imageMeta$1(_ctx, url) {
+  const meta2 = await _imageMeta(url).catch((err) => {
+    console.error("Failed to get image meta for " + url, err + "");
+    return {
+      width: 0,
+      height: 0,
+      ratio: 0
+    };
+  });
+  return meta2;
+}
+async function _imageMeta(url) {
+  {
+    const imageMeta2 = await Promise.resolve().then(function() {
+      return index$1;
+    }).then((r) => r.imageMeta);
+    const data = await fetch(url).then((res) => res.buffer());
+    const metadata = imageMeta2(data);
+    if (!metadata) {
+      throw new Error(`No metadata could be extracted from the image \`${url}\`.`);
+    }
+    const { width, height } = metadata;
+    const meta2 = {
+      width,
+      height,
+      ratio: width && height ? width / height : void 0
+    };
+    return meta2;
+  }
+}
+function createImage(globalOptions) {
+  const ctx = {
+    options: globalOptions
+  };
+  const getImage2 = (input, options = {}) => {
+    const image = resolveImage(ctx, input, options);
+    return image;
+  };
+  const $img = (input, modifiers = {}, options = {}) => {
+    return getImage2(input, {
+      ...options,
+      modifiers: defu(modifiers, options.modifiers || {})
+    }).url;
+  };
+  for (const presetName in globalOptions.presets) {
+    $img[presetName] = (source, modifiers, options) => $img(source, modifiers, { ...globalOptions.presets[presetName], ...options });
+  }
+  $img.options = globalOptions;
+  $img.getImage = getImage2;
+  $img.getMeta = (input, options) => getMeta(ctx, input, options);
+  $img.getSizes = (input, options) => getSizes(ctx, input, options);
+  ctx.$img = $img;
+  return $img;
+}
+async function getMeta(ctx, input, options) {
+  const image = resolveImage(ctx, input, { ...options });
+  if (typeof image.getMeta === "function") {
+    return await image.getMeta();
+  } else {
+    return await imageMeta$1(ctx, image.url);
+  }
+}
+function resolveImage(ctx, input, options) {
+  var _a, _b;
+  if (typeof input !== "string" || input === "") {
+    throw new TypeError(`input must be a string (received ${typeof input}: ${JSON.stringify(input)})`);
+  }
+  if (input.startsWith("data:")) {
+    return {
+      url: input
+    };
+  }
+  const { provider, defaults } = getProvider(ctx, options.provider || ctx.options.provider);
+  const preset = getPreset(ctx, options.preset);
+  input = hasProtocol(input) ? input : withLeadingSlash(input);
+  if (!provider.supportsAlias) {
+    for (const base in ctx.options.alias) {
+      if (input.startsWith(base)) {
+        input = joinURL(ctx.options.alias[base], input.substr(base.length));
+      }
+    }
+  }
+  if (provider.validateDomains && hasProtocol(input)) {
+    const inputHost = parseURL(input).host;
+    if (!ctx.options.domains.find((d) => d === inputHost)) {
+      return {
+        url: input
+      };
+    }
+  }
+  const _options = defu(options, preset, defaults);
+  _options.modifiers = { ..._options.modifiers };
+  const expectedFormat = _options.modifiers.format;
+  if ((_a = _options.modifiers) == null ? void 0 : _a.width) {
+    _options.modifiers.width = parseSize(_options.modifiers.width);
+  }
+  if ((_b = _options.modifiers) == null ? void 0 : _b.height) {
+    _options.modifiers.height = parseSize(_options.modifiers.height);
+  }
+  const image = provider.getImage(input, _options, ctx);
+  image.format = image.format || expectedFormat || "";
+  return image;
+}
+function getProvider(ctx, name) {
+  const provider = ctx.options.providers[name];
+  if (!provider) {
+    throw new Error("Unknown provider: " + name);
+  }
+  return provider;
+}
+function getPreset(ctx, name) {
+  if (!name) {
+    return {};
+  }
+  if (!ctx.options.presets[name]) {
+    throw new Error("Unknown preset: " + name);
+  }
+  return ctx.options.presets[name];
+}
+function getSizes(ctx, input, opts) {
+  var _a, _b;
+  const width = parseSize((_a = opts.modifiers) == null ? void 0 : _a.width);
+  const height = parseSize((_b = opts.modifiers) == null ? void 0 : _b.height);
+  const hwRatio = width && height ? height / width : 0;
+  const variants = [];
+  const sizes = {};
+  if (typeof opts.sizes === "string") {
+    for (const entry2 of opts.sizes.split(/[\s,]+/).filter((e) => e)) {
+      const s = entry2.split(":");
+      if (s.length !== 2) {
+        continue;
+      }
+      sizes[s[0].trim()] = s[1].trim();
+    }
+  } else {
+    Object.assign(sizes, opts.sizes);
+  }
+  for (const key in sizes) {
+    const screenMaxWidth = ctx.options.screens && ctx.options.screens[key] || parseInt(key);
+    let size = String(sizes[key]);
+    const isFluid = size.endsWith("vw");
+    if (!isFluid && /^\d+$/.test(size)) {
+      size = size + "px";
+    }
+    if (!isFluid && !size.endsWith("px")) {
+      continue;
+    }
+    let _cWidth = parseInt(size);
+    if (!screenMaxWidth || !_cWidth) {
+      continue;
+    }
+    if (isFluid) {
+      _cWidth = Math.round(_cWidth / 100 * screenMaxWidth);
+    }
+    const _cHeight = hwRatio ? Math.round(_cWidth * hwRatio) : height;
+    variants.push({
+      width: _cWidth,
+      size,
+      screenMaxWidth,
+      media: `(max-width: ${screenMaxWidth}px)`,
+      src: ctx.$img(input, { ...opts.modifiers, width: _cWidth, height: _cHeight }, opts)
+    });
+  }
+  variants.sort((v1, v2) => v1.screenMaxWidth - v2.screenMaxWidth);
+  const defaultVar = variants[variants.length - 1];
+  if (defaultVar) {
+    defaultVar.media = "";
+  }
+  return {
+    sizes: variants.map((v) => `${v.media ? v.media + " " : ""}${v.size}`).join(", "),
+    srcset: variants.map((v) => `${v.src} ${v.width}w`).join(", "),
+    src: defaultVar == null ? void 0 : defaultVar.src
+  };
+}
+const _sfc_main$p = vue_cjs_prod.defineComponent({
+  name: "NuxtImg",
+  mixins: [imageMixin],
+  props: {
+    placeholder: { type: [Boolean, String, Number, Array], default: void 0 }
+  },
+  data() {
+    return {
+      placeholderLoaded: false
+    };
+  },
+  head() {
+    if (this.preload === true) {
+      return {
+        link: [
+          {
+            rel: "preload",
+            as: "image",
+            href: this.nSrc
+          }
+        ]
+      };
+    }
+    return {};
+  },
+  computed: {
+    nAttrs() {
+      const attrs = this.nImgAttrs;
+      if (this.sizes) {
+        const { sizes, srcset } = this.nSizes;
+        attrs.sizes = sizes;
+        attrs.srcset = srcset;
+      }
+      return attrs;
+    },
+    nMainSrc() {
+      return this.sizes ? this.nSizes.src : this.$img(this.src, this.nModifiers, this.nOptions);
+    },
+    nSizes() {
+      return this.$img.getSizes(this.src, {
+        ...this.nOptions,
+        sizes: this.sizes,
+        modifiers: {
+          ...this.nModifiers,
+          width: parseSize(this.width),
+          height: parseSize(this.height)
+        }
+      });
+    },
+    nSrc() {
+      return this.nPlaceholder ? this.nPlaceholder : this.nMainSrc;
+    },
+    nPlaceholder() {
+      let placeholder = this.placeholder;
+      if (placeholder === "") {
+        placeholder = true;
+      }
+      if (!placeholder || this.placeholderLoaded) {
+        return false;
+      }
+      if (typeof placeholder === "string") {
+        return placeholder;
+      }
+      const size = Array.isArray(placeholder) ? placeholder : typeof placeholder === "number" ? [placeholder, placeholder] : [10, 10];
+      return this.$img(this.src, {
+        ...this.nModifiers,
+        width: size[0],
+        height: size[1],
+        quality: size[2] || 50
+      }, this.nOptions);
+    }
+  },
+  mounted() {
+    if (this.nPlaceholder) {
+      const img = new Image();
+      img.src = this.nMainSrc;
+      img.onload = () => {
+        this.$refs.img.src = this.nMainSrc;
+        this.placeholderLoaded = true;
+      };
+    }
+    if (process.static) {
+      if (this.sizes) {
+        this.nSizes;
+      }
+    }
+  }
+});
+function _sfc_ssrRender$8(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
+  _push(`<img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ key: _ctx.nSrc }, _ctx.nAttrs, {
+    ref: "img",
+    src: _ctx.nSrc
+  }, _attrs))}>`);
+}
 const _sfc_setup$p = _sfc_main$p.setup;
 _sfc_main$p.setup = (props, ctx) => {
   const ssrContext = vue_cjs_prod.useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("pages/dashboard.vue");
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("node_modules/@nuxt/image-edge/dist/runtime/components/nuxt-img.vue");
   return _sfc_setup$p ? _sfc_setup$p(props, ctx) : void 0;
 };
-const meta$4 = void 0;
+const __nuxt_component_0$2 = /* @__PURE__ */ _export_sfc(_sfc_main$p, [["ssrRender", _sfc_ssrRender$8]]);
 const _sfc_main$o = /* @__PURE__ */ vue_cjs_prod.defineComponent({
   __name: "index",
   __ssrInlineRender: true,
@@ -3949,16 +4323,21 @@ const _sfc_main$o = /* @__PURE__ */ vue_cjs_prod.defineComponent({
       items.value = await generateItems(40);
     });
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_SkeletonCard = __nuxt_component_0$2;
-      const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
+      const _component_nuxt_img = __nuxt_component_0$2;
+      const _component_SkeletonCard = __nuxt_component_1$2;
       _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using CDN image</h2><div><div class="grid md:grid-cols-5 gap-2 grid-cols-2 sm:grid-cols-3"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
-        _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
+        _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg">`);
+        _push(serverRenderer.exports.ssrRenderComponent(_component_nuxt_img, {
           class: "w-full",
+          src: item.image,
           alt: "Sunset in the mountains",
           width: "750",
-          height: "400"
-        }, serverRenderer.exports.ssrGetDirectiveProps(_ctx, _directive_lazy, item.image)))}><div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
+          height: "400",
+          placeholder: "",
+          quality: "80"
+        }, null, _parent));
+        _push(`<div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
         serverRenderer.exports.ssrRenderList(item.tags, (tag) => {
           _push(`<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> #${serverRenderer.exports.ssrInterpolate(tag)}</span>`);
         });
@@ -4022,16 +4401,20 @@ const _sfc_main$n = /* @__PURE__ */ vue_cjs_prod.defineComponent({
       items.value = await generateItems(40);
     });
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_SkeletonCard = __nuxt_component_0$2;
-      const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
+      const _component_nuxt_img = __nuxt_component_0$2;
+      const _component_SkeletonCard = __nuxt_component_1$2;
       _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using Static server image</h2><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
-        _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
+        _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg">`);
+        _push(serverRenderer.exports.ssrRenderComponent(_component_nuxt_img, {
           class: "w-full",
+          src: item.image,
           alt: "Sunset in the mountains",
           width: "750",
-          height: "400"
-        }, serverRenderer.exports.ssrGetDirectiveProps(_ctx, _directive_lazy, item.image)))}><div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
+          height: "400",
+          placeholder: ""
+        }, null, _parent));
+        _push(`<div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
         serverRenderer.exports.ssrRenderList(item.tags, (tag) => {
           _push(`<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> #${serverRenderer.exports.ssrInterpolate(tag)}</span>`);
         });
@@ -4265,6 +4648,84 @@ const _47Users_47hieptran_47Desktop_47Aecomapp_47nuxt_45app_47node_modules_47nux
   });
   return { provide: { router } };
 });
+const operationsGenerator = createOperationsGenerator({
+  keyMap: {
+    format: "f",
+    fit: "fit",
+    width: "w",
+    height: "h",
+    resize: "s",
+    quality: "q",
+    background: "b"
+  },
+  joinWith: ",",
+  formatter: (key, val) => encodeParam(key) + "_" + encodeParam(val)
+});
+const getImage = (src, { modifiers = {}, baseURL: baseURL2 } = {}, _ctx) => {
+  if (modifiers.width && modifiers.height) {
+    modifiers.resize = `${modifiers.width}x${modifiers.height}`;
+    delete modifiers.width;
+    delete modifiers.height;
+  }
+  const params = operationsGenerator(modifiers) || "_";
+  if (!baseURL2) {
+    baseURL2 = joinURL("/", "/_ipx");
+  }
+  return {
+    url: joinURL(baseURL2, params, encodePath(src))
+  };
+};
+const validateDomains = true;
+const supportsAlias = true;
+const ipxRuntime$2595471452 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  getImage,
+  validateDomains,
+  supportsAlias
+}, Symbol.toStringTag, { value: "Module" }));
+const imageOptions = {
+  "screens": {
+    "xs": 320,
+    "sm": 640,
+    "md": 768,
+    "lg": 1024,
+    "xl": 1280,
+    "xxl": 1536,
+    "2xl": 1536
+  },
+  "presets": {},
+  "provider": "ipx",
+  "domains": [],
+  "alias": {}
+};
+imageOptions.providers = {
+  ["ipx"]: { provider: ipxRuntime$2595471452, defaults: {} }
+};
+const useSticky = (el, offset) => {
+  const onScroll = () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > offset) {
+      el.classList.add("sticky");
+    } else {
+      el.classList.remove("sticky");
+    }
+  };
+  window.addEventListener("scroll", onScroll);
+  vue_cjs_prod.onUnmounted(() => {
+    window.removeEventListener("scroll", onScroll);
+  });
+  return {
+    onScroll
+  };
+};
+const _47Users_47hieptran_47Desktop_47Aecomapp_47nuxt_45app_47node_modules_47_64nuxt_47image_45edge_47dist_47runtime_47plugin = defineNuxtPlugin(() => {
+  const img = createImage(imageOptions);
+  return {
+    provide: {
+      img
+    }
+  };
+});
 const PiniaNuxtPlugin = (context, inject2) => {
   const pinia = createPinia();
   {
@@ -4307,26 +4768,10 @@ const _plugins = [
   _47Users_47hieptran_47Desktop_47Aecomapp_47nuxt_45app_47node_modules_47nuxt_47dist_47head_47runtime_47lib_47vueuse_45head_46plugin,
   _47Users_47hieptran_47Desktop_47Aecomapp_47nuxt_45app_47node_modules_47nuxt_47dist_47head_47runtime_47plugin,
   _47Users_47hieptran_47Desktop_47Aecomapp_47nuxt_45app_47node_modules_47nuxt_47dist_47pages_47runtime_47router,
+  _47Users_47hieptran_47Desktop_47Aecomapp_47nuxt_45app_47node_modules_47_64nuxt_47image_45edge_47dist_47runtime_47plugin,
   PiniaNuxtPlugin,
   _47Users_47hieptran_47Desktop_47Aecomapp_47nuxt_45app_47plugins_47lazyload_46ts
 ];
-const useSticky = (el, offset) => {
-  const onScroll = () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    if (scrollTop > offset) {
-      el.classList.add("sticky");
-    } else {
-      el.classList.remove("sticky");
-    }
-  };
-  window.addEventListener("scroll", onScroll);
-  vue_cjs_prod.onUnmounted(() => {
-    window.removeEventListener("scroll", onScroll);
-  });
-  return {
-    onScroll
-  };
-};
 const _sfc_main$m = {
   __name: "error-404",
   __ssrInlineRender: true,
@@ -4599,6 +5044,654 @@ const plugins = normalizePlugins(_plugins);
   };
 }
 const entry$1 = (ctx) => entry(ctx);
+const BMP = {
+  validate(buffer) {
+    return buffer.toString("ascii", 0, 2) === "BM";
+  },
+  calculate(buffer) {
+    return {
+      height: Math.abs(buffer.readInt32LE(22)),
+      width: buffer.readUInt32LE(18)
+    };
+  }
+};
+const TYPE_ICON = 1;
+const SIZE_HEADER$1 = 2 + 2 + 2;
+const SIZE_IMAGE_ENTRY = 1 + 1 + 1 + 1 + 2 + 2 + 4 + 4;
+function getSizeFromOffset(buffer, offset) {
+  const value = buffer.readUInt8(offset);
+  return value === 0 ? 256 : value;
+}
+function getImageSize$1(buffer, imageIndex) {
+  const offset = SIZE_HEADER$1 + imageIndex * SIZE_IMAGE_ENTRY;
+  return {
+    height: getSizeFromOffset(buffer, offset + 1),
+    width: getSizeFromOffset(buffer, offset)
+  };
+}
+const ICO = {
+  validate(buffer) {
+    if (buffer.readUInt16LE(0) !== 0) {
+      return false;
+    }
+    return buffer.readUInt16LE(2) === TYPE_ICON;
+  },
+  calculate(buffer) {
+    const nbImages = buffer.readUInt16LE(4);
+    const imageSize = getImageSize$1(buffer, 0);
+    if (nbImages === 1) {
+      return imageSize;
+    }
+    const imgs = [imageSize];
+    for (let imageIndex = 1; imageIndex < nbImages; imageIndex += 1) {
+      imgs.push(getImageSize$1(buffer, imageIndex));
+    }
+    const result = {
+      height: imageSize.height,
+      images: imgs,
+      width: imageSize.width
+    };
+    return result;
+  }
+};
+const TYPE_CURSOR = 2;
+const CUR = {
+  validate(buffer) {
+    if (buffer.readUInt16LE(0) !== 0) {
+      return false;
+    }
+    return buffer.readUInt16LE(2) === TYPE_CURSOR;
+  },
+  calculate(buffer) {
+    return ICO.calculate(buffer);
+  }
+};
+const DDS = {
+  validate(buffer) {
+    return buffer.readUInt32LE(0) === 542327876;
+  },
+  calculate(buffer) {
+    return {
+      height: buffer.readUInt32LE(12),
+      width: buffer.readUInt32LE(16)
+    };
+  }
+};
+const gifRegexp = /^GIF8[79]a/;
+const GIF = {
+  validate(buffer) {
+    const signature = buffer.toString("ascii", 0, 6);
+    return gifRegexp.test(signature);
+  },
+  calculate(buffer) {
+    return {
+      height: buffer.readUInt16LE(8),
+      width: buffer.readUInt16LE(6)
+    };
+  }
+};
+const SIZE_HEADER = 4 + 4;
+const FILE_LENGTH_OFFSET = 4;
+const ENTRY_LENGTH_OFFSET = 4;
+const ICON_TYPE_SIZE = {
+  ICON: 32,
+  "ICN#": 32,
+  "icm#": 16,
+  icm4: 16,
+  icm8: 16,
+  "ics#": 16,
+  ics4: 16,
+  ics8: 16,
+  is32: 16,
+  s8mk: 16,
+  icp4: 16,
+  icl4: 32,
+  icl8: 32,
+  il32: 32,
+  l8mk: 32,
+  icp5: 32,
+  ic11: 32,
+  ich4: 48,
+  ich8: 48,
+  ih32: 48,
+  h8mk: 48,
+  icp6: 64,
+  ic12: 32,
+  it32: 128,
+  t8mk: 128,
+  ic07: 128,
+  ic08: 256,
+  ic13: 256,
+  ic09: 512,
+  ic14: 512,
+  ic10: 1024
+};
+function readImageHeader(buffer, imageOffset) {
+  const imageLengthOffset = imageOffset + ENTRY_LENGTH_OFFSET;
+  return [
+    buffer.toString("ascii", imageOffset, imageLengthOffset),
+    buffer.readUInt32BE(imageLengthOffset)
+  ];
+}
+function getImageSize(type) {
+  const size = ICON_TYPE_SIZE[type];
+  return { width: size, height: size, type };
+}
+const ICNS = {
+  validate(buffer) {
+    return buffer.toString("ascii", 0, 4) === "icns";
+  },
+  calculate(buffer) {
+    const bufferLength = buffer.length;
+    const fileLength = buffer.readUInt32BE(FILE_LENGTH_OFFSET);
+    let imageOffset = SIZE_HEADER;
+    let imageHeader = readImageHeader(buffer, imageOffset);
+    let imageSize = getImageSize(imageHeader[0]);
+    imageOffset += imageHeader[1];
+    if (imageOffset === fileLength) {
+      return imageSize;
+    }
+    const result = {
+      height: imageSize.height,
+      images: [imageSize],
+      width: imageSize.width
+    };
+    while (imageOffset < fileLength && imageOffset < bufferLength) {
+      imageHeader = readImageHeader(buffer, imageOffset);
+      imageSize = getImageSize(imageHeader[0]);
+      imageOffset += imageHeader[1];
+      result.images.push(imageSize);
+    }
+    return result;
+  }
+};
+const J2C = {
+  validate(buffer) {
+    return buffer.toString("hex", 0, 4) === "ff4fff51";
+  },
+  calculate(buffer) {
+    return {
+      height: buffer.readUInt32BE(12),
+      width: buffer.readUInt32BE(8)
+    };
+  }
+};
+const BoxTypes = {
+  ftyp: "66747970",
+  ihdr: "69686472",
+  jp2h: "6a703268",
+  jp__: "6a502020",
+  rreq: "72726571",
+  xml_: "786d6c20"
+};
+const calculateRREQLength = (box) => {
+  const unit = box.readUInt8(0);
+  let offset = 1 + 2 * unit;
+  const numStdFlags = box.readUInt16BE(offset);
+  const flagsLength = numStdFlags * (2 + unit);
+  offset = offset + 2 + flagsLength;
+  const numVendorFeatures = box.readUInt16BE(offset);
+  const featuresLength = numVendorFeatures * (16 + unit);
+  return offset + 2 + featuresLength;
+};
+const parseIHDR = (box) => {
+  return {
+    height: box.readUInt32BE(4),
+    width: box.readUInt32BE(8)
+  };
+};
+const JP2 = {
+  validate(buffer) {
+    const signature = buffer.toString("hex", 4, 8);
+    const signatureLength = buffer.readUInt32BE(0);
+    if (signature !== BoxTypes.jp__ || signatureLength < 1) {
+      return false;
+    }
+    const ftypeBoxStart = signatureLength + 4;
+    const ftypBoxLength = buffer.readUInt32BE(signatureLength);
+    const ftypBox = buffer.slice(ftypeBoxStart, ftypeBoxStart + ftypBoxLength);
+    return ftypBox.toString("hex", 0, 4) === BoxTypes.ftyp;
+  },
+  calculate(buffer) {
+    const signatureLength = buffer.readUInt32BE(0);
+    const ftypBoxLength = buffer.readUInt16BE(signatureLength + 2);
+    let offset = signatureLength + 4 + ftypBoxLength;
+    const nextBoxType = buffer.toString("hex", offset, offset + 4);
+    switch (nextBoxType) {
+      case BoxTypes.rreq:
+        const MAGIC = 4;
+        offset = offset + 4 + MAGIC + calculateRREQLength(buffer.slice(offset + 4));
+        return parseIHDR(buffer.slice(offset + 8, offset + 24));
+      case BoxTypes.jp2h:
+        return parseIHDR(buffer.slice(offset + 8, offset + 24));
+      default:
+        throw new TypeError("Unsupported header found: " + buffer.toString("ascii", offset, offset + 4));
+    }
+  }
+};
+function readUInt(buffer, bits, offset, isBigEndian) {
+  offset = offset || 0;
+  const endian = isBigEndian ? "BE" : "LE";
+  const methodName = "readUInt" + bits + endian;
+  return buffer[methodName].call(buffer, offset);
+}
+const EXIF_MARKER = "45786966";
+const APP1_DATA_SIZE_BYTES = 2;
+const EXIF_HEADER_BYTES = 6;
+const TIFF_BYTE_ALIGN_BYTES = 2;
+const BIG_ENDIAN_BYTE_ALIGN = "4d4d";
+const LITTLE_ENDIAN_BYTE_ALIGN = "4949";
+const IDF_ENTRY_BYTES = 12;
+const NUM_DIRECTORY_ENTRIES_BYTES = 2;
+function isEXIF(buffer) {
+  return buffer.toString("hex", 2, 6) === EXIF_MARKER;
+}
+function extractSize(buffer, index2) {
+  return {
+    height: buffer.readUInt16BE(index2),
+    width: buffer.readUInt16BE(index2 + 2)
+  };
+}
+function extractOrientation(exifBlock, isBigEndian) {
+  const idfOffset = 8;
+  const offset = EXIF_HEADER_BYTES + idfOffset;
+  const idfDirectoryEntries = readUInt(exifBlock, 16, offset, isBigEndian);
+  for (let directoryEntryNumber = 0; directoryEntryNumber < idfDirectoryEntries; directoryEntryNumber++) {
+    const start = offset + NUM_DIRECTORY_ENTRIES_BYTES + directoryEntryNumber * IDF_ENTRY_BYTES;
+    const end = start + IDF_ENTRY_BYTES;
+    if (start > exifBlock.length) {
+      return;
+    }
+    const block = exifBlock.slice(start, end);
+    const tagNumber = readUInt(block, 16, 0, isBigEndian);
+    if (tagNumber === 274) {
+      const dataFormat = readUInt(block, 16, 2, isBigEndian);
+      if (dataFormat !== 3) {
+        return;
+      }
+      const numberOfComponents = readUInt(block, 32, 4, isBigEndian);
+      if (numberOfComponents !== 1) {
+        return;
+      }
+      return readUInt(block, 16, 8, isBigEndian);
+    }
+  }
+}
+function validateExifBlock(buffer, index2) {
+  const exifBlock = buffer.slice(APP1_DATA_SIZE_BYTES, index2);
+  const byteAlign = exifBlock.toString("hex", EXIF_HEADER_BYTES, EXIF_HEADER_BYTES + TIFF_BYTE_ALIGN_BYTES);
+  const isBigEndian = byteAlign === BIG_ENDIAN_BYTE_ALIGN;
+  const isLittleEndian = byteAlign === LITTLE_ENDIAN_BYTE_ALIGN;
+  if (isBigEndian || isLittleEndian) {
+    return extractOrientation(exifBlock, isBigEndian);
+  }
+}
+function validateBuffer(buffer, index2) {
+  if (index2 > buffer.length) {
+    throw new TypeError("Corrupt JPG, exceeded buffer limits");
+  }
+  if (buffer[index2] !== 255) {
+    throw new TypeError("Invalid JPG, marker table corrupted");
+  }
+}
+const JPG = {
+  validate(buffer) {
+    const SOIMarker = buffer.toString("hex", 0, 2);
+    return SOIMarker === "ffd8";
+  },
+  calculate(buffer) {
+    buffer = buffer.slice(4);
+    let orientation;
+    let next;
+    while (buffer.length) {
+      const i = buffer.readUInt16BE(0);
+      if (isEXIF(buffer)) {
+        orientation = validateExifBlock(buffer, i);
+      }
+      validateBuffer(buffer, i);
+      next = buffer[i + 1];
+      if (next === 192 || next === 193 || next === 194) {
+        const size = extractSize(buffer, i + 5);
+        if (!orientation) {
+          return size;
+        }
+        return {
+          height: size.height,
+          orientation,
+          width: size.width
+        };
+      }
+      buffer = buffer.slice(i + 2);
+    }
+    throw new TypeError("Invalid JPG, no size found");
+  }
+};
+const SIGNATURE = "KTX 11";
+const KTX = {
+  validate(buffer) {
+    return SIGNATURE === buffer.toString("ascii", 1, 7);
+  },
+  calculate(buffer) {
+    return {
+      height: buffer.readUInt32LE(40),
+      width: buffer.readUInt32LE(36)
+    };
+  }
+};
+const pngSignature = "PNG\r\n\n";
+const pngImageHeaderChunkName = "IHDR";
+const pngFriedChunkName = "CgBI";
+const PNG = {
+  validate(buffer) {
+    if (pngSignature === buffer.toString("ascii", 1, 8)) {
+      let chunkName = buffer.toString("ascii", 12, 16);
+      if (chunkName === pngFriedChunkName) {
+        chunkName = buffer.toString("ascii", 28, 32);
+      }
+      if (chunkName !== pngImageHeaderChunkName) {
+        throw new TypeError("Invalid PNG");
+      }
+      return true;
+    }
+    return false;
+  },
+  calculate(buffer) {
+    if (buffer.toString("ascii", 12, 16) === pngFriedChunkName) {
+      return {
+        height: buffer.readUInt32BE(36),
+        width: buffer.readUInt32BE(32)
+      };
+    }
+    return {
+      height: buffer.readUInt32BE(20),
+      width: buffer.readUInt32BE(16)
+    };
+  }
+};
+const PNMTypes = {
+  P1: "pbm/ascii",
+  P2: "pgm/ascii",
+  P3: "ppm/ascii",
+  P4: "pbm",
+  P5: "pgm",
+  P6: "ppm",
+  P7: "pam",
+  PF: "pfm"
+};
+const Signatures = Object.keys(PNMTypes);
+const handlers = {
+  default: (lines) => {
+    let dimensions = [];
+    while (lines.length > 0) {
+      const line = lines.shift();
+      if (line[0] === "#") {
+        continue;
+      }
+      dimensions = line.split(" ");
+      break;
+    }
+    if (dimensions.length === 2) {
+      return {
+        height: parseInt(dimensions[1], 10),
+        width: parseInt(dimensions[0], 10)
+      };
+    } else {
+      throw new TypeError("Invalid PNM");
+    }
+  },
+  pam: (lines) => {
+    const size = {};
+    while (lines.length > 0) {
+      const line = lines.shift();
+      if (line.length > 16 || line.charCodeAt(0) > 128) {
+        continue;
+      }
+      const [key, value] = line.split(" ");
+      if (key && value) {
+        size[key.toLowerCase()] = parseInt(value, 10);
+      }
+      if (size.height && size.width) {
+        break;
+      }
+    }
+    if (size.height && size.width) {
+      return {
+        height: size.height,
+        width: size.width
+      };
+    } else {
+      throw new TypeError("Invalid PAM");
+    }
+  }
+};
+const PNM = {
+  validate(buffer) {
+    const signature = buffer.toString("ascii", 0, 2);
+    return Signatures.includes(signature);
+  },
+  calculate(buffer) {
+    const signature = buffer.toString("ascii", 0, 2);
+    const type = PNMTypes[signature];
+    const lines = buffer.toString("ascii", 3).split(/[\r\n]+/);
+    const handler = handlers[type] || handlers.default;
+    return handler(lines);
+  }
+};
+const PSD = {
+  validate(buffer) {
+    return buffer.toString("ascii", 0, 4) === "8BPS";
+  },
+  calculate(buffer) {
+    return {
+      height: buffer.readUInt32BE(14),
+      width: buffer.readUInt32BE(18)
+    };
+  }
+};
+const svgReg = /<svg\s([^>"']|"[^"]*"|'[^']*')*>/;
+const extractorRegExps = {
+  height: /\sheight=(['"])([^%]+?)\1/,
+  root: svgReg,
+  viewbox: /\sviewBox=(['"])(.+?)\1/,
+  width: /\swidth=(['"])([^%]+?)\1/
+};
+const INCH_CM = 2.54;
+const units = {
+  cm: 96 / INCH_CM,
+  em: 16,
+  ex: 8,
+  m: 96 / INCH_CM * 100,
+  mm: 96 / INCH_CM / 10,
+  pc: 96 / 72 / 12,
+  pt: 96 / 72
+};
+function parseLength(len) {
+  const m = /([0-9.]+)([a-z]*)/.exec(len);
+  if (!m) {
+    return void 0;
+  }
+  return Math.round(parseFloat(m[1]) * (units[m[2]] || 1));
+}
+function parseViewbox(viewbox) {
+  const bounds = viewbox.split(" ");
+  return {
+    height: parseLength(bounds[3]),
+    width: parseLength(bounds[2])
+  };
+}
+function parseAttributes(root) {
+  const width = root.match(extractorRegExps.width);
+  const height = root.match(extractorRegExps.height);
+  const viewbox = root.match(extractorRegExps.viewbox);
+  return {
+    height: height && parseLength(height[2]),
+    viewbox: viewbox && parseViewbox(viewbox[2]),
+    width: width && parseLength(width[2])
+  };
+}
+function calculateByDimensions(attrs) {
+  return {
+    height: attrs.height,
+    width: attrs.width
+  };
+}
+function calculateByViewbox(attrs, viewbox) {
+  const ratio = viewbox.width / viewbox.height;
+  if (attrs.width) {
+    return {
+      height: Math.floor(attrs.width / ratio),
+      width: attrs.width
+    };
+  }
+  if (attrs.height) {
+    return {
+      height: attrs.height,
+      width: Math.floor(attrs.height * ratio)
+    };
+  }
+  return {
+    height: viewbox.height,
+    width: viewbox.width
+  };
+}
+const SVG = {
+  validate(buffer) {
+    const str = String(buffer);
+    return svgReg.test(str);
+  },
+  calculate(buffer) {
+    const root = buffer.toString("utf8").match(extractorRegExps.root);
+    if (root) {
+      const attrs = parseAttributes(root[0]);
+      if (attrs.width && attrs.height) {
+        return calculateByDimensions(attrs);
+      }
+      if (attrs.viewbox) {
+        return calculateByViewbox(attrs, attrs.viewbox);
+      }
+    }
+    throw new TypeError("Invalid SVG");
+  }
+};
+function calculateExtended(buffer) {
+  return {
+    height: 1 + buffer.readUIntLE(7, 3),
+    width: 1 + buffer.readUIntLE(4, 3)
+  };
+}
+function calculateLossless(buffer) {
+  return {
+    height: 1 + ((buffer[4] & 15) << 10 | buffer[3] << 2 | (buffer[2] & 192) >> 6),
+    width: 1 + ((buffer[2] & 63) << 8 | buffer[1])
+  };
+}
+function calculateLossy(buffer) {
+  return {
+    height: buffer.readInt16LE(8) & 16383,
+    width: buffer.readInt16LE(6) & 16383
+  };
+}
+const WEBP = {
+  validate(buffer) {
+    const riffHeader = buffer.toString("ascii", 0, 4) === "RIFF";
+    const webpHeader = buffer.toString("ascii", 8, 12) === "WEBP";
+    const vp8Header = buffer.toString("ascii", 12, 15) === "VP8";
+    return riffHeader && webpHeader && vp8Header;
+  },
+  calculate(buffer) {
+    const chunkHeader = buffer.toString("ascii", 12, 16);
+    buffer = buffer.slice(20, 30);
+    if (chunkHeader === "VP8X") {
+      const extendedHeader = buffer[0];
+      const validStart = (extendedHeader & 192) === 0;
+      const validEnd = (extendedHeader & 1) === 0;
+      if (validStart && validEnd) {
+        return calculateExtended(buffer);
+      } else {
+        throw new TypeError("Invalid WebP");
+      }
+    }
+    if (chunkHeader === "VP8 " && buffer[0] !== 47) {
+      return calculateLossy(buffer);
+    }
+    const signature = buffer.toString("hex", 3, 6);
+    if (chunkHeader === "VP8L" && signature !== "9d012a") {
+      return calculateLossless(buffer);
+    }
+    throw new TypeError("Invalid WebP");
+  }
+};
+const typeHandlers = {
+  bmp: BMP,
+  cur: CUR,
+  dds: DDS,
+  gif: GIF,
+  icns: ICNS,
+  ico: ICO,
+  j2c: J2C,
+  jp2: JP2,
+  jpg: JPG,
+  ktx: KTX,
+  png: PNG,
+  pnm: PNM,
+  psd: PSD,
+  svg: SVG,
+  webp: WEBP
+};
+const getMimeType = (type) => {
+  if (type === "svg") {
+    return "image/svg+xml";
+  }
+  return `image/${type}`;
+};
+const keys = Object.keys(typeHandlers);
+const firstBytes = {
+  56: "psd",
+  66: "bmp",
+  68: "dds",
+  71: "gif",
+  73: "tiff",
+  77: "tiff",
+  82: "webp",
+  105: "icns",
+  137: "png",
+  255: "jpg"
+};
+function detector(buffer) {
+  const byte = buffer[0];
+  if (byte in firstBytes) {
+    const type = firstBytes[byte];
+    if (typeHandlers[type].validate(buffer)) {
+      return type;
+    }
+  }
+  const finder = (key) => typeHandlers[key].validate(buffer);
+  return keys.find(finder);
+}
+function lookup(buffer, filepath) {
+  const type = detector(buffer);
+  if (type && type in typeHandlers) {
+    const size = typeHandlers[type].calculate(buffer, filepath);
+    if (size !== void 0) {
+      size.type = type;
+      size.mimeType = getMimeType(type);
+      return size;
+    }
+  }
+  throw new TypeError("unsupported file type: " + type + " (file: " + filepath + ")");
+}
+function imageMeta(input) {
+  if (Buffer.isBuffer(input)) {
+    return lookup(input);
+  }
+  throw new Error("Input should be buffer!");
+}
+const types = Object.keys(typeHandlers);
+const index$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  imageMeta,
+  types
+}, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$g = {};
 function _sfc_ssrRender$6(_ctx, _push, _parent, _attrs) {
   _push(`<div${serverRenderer.exports.ssrRenderAttrs(_attrs)}>Blank</div>`);
@@ -4666,7 +5759,7 @@ const _sfc_main$e = /* @__PURE__ */ vue_cjs_prod.defineComponent({
       items.value = await generateItems(40);
     });
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_SkeletonCard = __nuxt_component_0$2;
+      const _component_SkeletonCard = __nuxt_component_1$2;
       const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
       _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using mix CDN and static image</h2><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
@@ -4740,16 +5833,21 @@ const _sfc_main$d = /* @__PURE__ */ vue_cjs_prod.defineComponent({
       items.value = await generateItems(40);
     });
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_SkeletonCard = __nuxt_component_0$2;
-      const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
+      const _component_nuxt_img = __nuxt_component_0$2;
+      const _component_SkeletonCard = __nuxt_component_1$2;
       _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using CDN image</h2><div><div class="grid md:grid-cols-5 gap-2 grid-cols-2 sm:grid-cols-3"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
-        _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
+        _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg">`);
+        _push(serverRenderer.exports.ssrRenderComponent(_component_nuxt_img, {
           class: "w-full",
+          src: item.image,
           alt: "Sunset in the mountains",
           width: "750",
-          height: "400"
-        }, serverRenderer.exports.ssrGetDirectiveProps(_ctx, _directive_lazy, item.image)))}><div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
+          height: "400",
+          placeholder: "",
+          quality: "80"
+        }, null, _parent));
+        _push(`<div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
         serverRenderer.exports.ssrRenderList(item.tags, (tag) => {
           _push(`<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> #${serverRenderer.exports.ssrInterpolate(tag)}</span>`);
         });
@@ -4816,16 +5914,20 @@ const _sfc_main$c = /* @__PURE__ */ vue_cjs_prod.defineComponent({
       items.value = await generateItems(40);
     });
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_SkeletonCard = __nuxt_component_0$2;
-      const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
+      const _component_nuxt_img = __nuxt_component_0$2;
+      const _component_SkeletonCard = __nuxt_component_1$2;
       _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using Static server image</h2><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
-        _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
+        _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg">`);
+        _push(serverRenderer.exports.ssrRenderComponent(_component_nuxt_img, {
           class: "w-full",
+          src: item.image,
           alt: "Sunset in the mountains",
           width: "750",
-          height: "400"
-        }, serverRenderer.exports.ssrGetDirectiveProps(_ctx, _directive_lazy, item.image)))}><div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
+          height: "400",
+          placeholder: ""
+        }, null, _parent));
+        _push(`<div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
         serverRenderer.exports.ssrRenderList(item.tags, (tag) => {
           _push(`<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> #${serverRenderer.exports.ssrInterpolate(tag)}</span>`);
         });

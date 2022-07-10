@@ -15,4 +15,6 @@ import 'unstorage';
 import 'fs';
 import 'pathe';
 import 'url';
+import 'node:url';
+import 'ipx';
 //# sourceMappingURL=index.mjs.map

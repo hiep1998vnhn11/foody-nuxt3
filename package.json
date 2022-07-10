@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@iconify/json": "^2.1.75",
+    "@nuxt/image-edge": "^1.0.0-27621400.93ce78a",
     "@nuxtjs/tailwindcss": "^5.1.3",
     "@vueuse/nuxt": "^8.9.1",
     "nuxt": "3.0.0-rc.4",

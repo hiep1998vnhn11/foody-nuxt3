@@ -18,7 +18,9 @@ declare module 'vue' {
     'NuxtErrorBoundary': typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary")['default'],
     'ClientOnly': typeof import("../node_modules/nuxt/dist/app/components/client-only")['default'],
     'ServerPlaceholder': typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default'],
-    'NuxtLink': typeof import("../node_modules/nuxt/dist/app/components/nuxt-link")['default']
+    'NuxtLink': typeof import("../node_modules/nuxt/dist/app/components/nuxt-link")['default'],
+    'NuxtImg': typeof import("../node_modules/@nuxt/image-edge/dist/runtime/components/nuxt-img.vue")['default'],
+    'NuxtPicture': typeof import("../node_modules/@nuxt/image-edge/dist/runtime/components/nuxt-picture.vue")['default']
     'LazyAlert': typeof import("../components/Alert.vue")['default'],
     'LazyAnchor': typeof import("../components/Anchor.vue")['default'],
     'LazyButton': typeof import("../components/Button.vue")['default'],
@@ -36,7 +38,9 @@ declare module 'vue' {
     'LazyNuxtErrorBoundary': typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary")['default'],
     'LazyClientOnly': typeof import("../node_modules/nuxt/dist/app/components/client-only")['default'],
     'LazyServerPlaceholder': typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default'],
-    'LazyNuxtLink': typeof import("../node_modules/nuxt/dist/app/components/nuxt-link")['default']
+    'LazyNuxtLink': typeof import("../node_modules/nuxt/dist/app/components/nuxt-link")['default'],
+    'LazyNuxtImg': typeof import("../node_modules/@nuxt/image-edge/dist/runtime/components/nuxt-img.vue")['default'],
+    'LazyNuxtPicture': typeof import("../node_modules/@nuxt/image-edge/dist/runtime/components/nuxt-picture.vue")['default']
   }
 }
 export const Alert: typeof import("../components/Alert.vue")['default']
@@ -57,6 +61,8 @@ export const NuxtErrorBoundary: typeof import("../node_modules/nuxt/dist/app/com
 export const ClientOnly: typeof import("../node_modules/nuxt/dist/app/components/client-only")['default']
 export const ServerPlaceholder: typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']
 export const NuxtLink: typeof import("../node_modules/nuxt/dist/app/components/nuxt-link")['default']
+export const NuxtImg: typeof import("../node_modules/@nuxt/image-edge/dist/runtime/components/nuxt-img.vue")['default']
+export const NuxtPicture: typeof import("../node_modules/@nuxt/image-edge/dist/runtime/components/nuxt-picture.vue")['default']
 export const LazyAlert: typeof import("../components/Alert.vue")['default']
 export const LazyAnchor: typeof import("../components/Anchor.vue")['default']
 export const LazyButton: typeof import("../components/Button.vue")['default']
@@ -75,4 +81,6 @@ export const LazyNuxtErrorBoundary: typeof import("../node_modules/nuxt/dist/app
 export const LazyClientOnly: typeof import("../node_modules/nuxt/dist/app/components/client-only")['default']
 export const LazyServerPlaceholder: typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']
 export const LazyNuxtLink: typeof import("../node_modules/nuxt/dist/app/components/nuxt-link")['default']
+export const LazyNuxtImg: typeof import("../node_modules/@nuxt/image-edge/dist/runtime/components/nuxt-img.vue")['default']
+export const LazyNuxtPicture: typeof import("../node_modules/@nuxt/image-edge/dist/runtime/components/nuxt-picture.vue")['default']
 export const componentNames: string[]

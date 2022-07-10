@@ -66,6 +66,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
     'unplugin-icons/nuxt',
+    '@nuxt/image-edge',
   ],
   css: ['~/assets/scss/vendor.scss', '~/assets/scss/app.scss'],
   // plugins: ['~/plugins/lazyload'],

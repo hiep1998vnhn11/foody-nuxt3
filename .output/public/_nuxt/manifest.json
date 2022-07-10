@@ -1,6 +1,6 @@
 {
   "node_modules/nuxt/dist/app/entry.mjs": {
-    "file": "entry-fb388d04.mjs",
+    "file": "entry-0690abe0.mjs",
     "src": "node_modules/nuxt/dist/app/entry.mjs",
     "isEntry": true,
     "dynamicImports": [
@@ -18,7 +18,7 @@
     ]
   },
   "pages/about.vue": {
-    "file": "about-9cb2c045.mjs",
+    "file": "about-668600eb.mjs",
     "src": "pages/about.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -26,7 +26,7 @@
     ]
   },
   "pages/blank.vue": {
-    "file": "blank-503347cd.mjs",
+    "file": "blank-ef7c6995.mjs",
     "src": "pages/blank.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -34,40 +34,40 @@
     ]
   },
   "pages/dashboard.vue": {
-    "file": "dashboard-116ac9d1.mjs",
+    "file": "dashboard-f756a702.mjs",
     "src": "pages/dashboard.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_useObserver-be230055.mjs",
+      "_useObserver-b327d869.mjs",
       "node_modules/nuxt/dist/app/entry.mjs"
     ]
   },
-  "_useObserver-be230055.mjs": {
-    "file": "useObserver-be230055.mjs",
+  "_useObserver-b327d869.mjs": {
+    "file": "useObserver-b327d869.mjs",
     "imports": [
       "node_modules/nuxt/dist/app/entry.mjs"
     ]
   },
   "pages/index.vue": {
-    "file": "index-0ec625f3.mjs",
+    "file": "index-10a7a3d7.mjs",
     "src": "pages/index.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_useObserver-be230055.mjs",
-      "node_modules/nuxt/dist/app/entry.mjs"
+      "node_modules/nuxt/dist/app/entry.mjs",
+      "_useObserver-b327d869.mjs"
     ]
   },
   "pages/post.vue": {
-    "file": "post-bcae0987.mjs",
+    "file": "post-e9e8f4e9.mjs",
     "src": "pages/post.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_useObserver-be230055.mjs",
-      "node_modules/nuxt/dist/app/entry.mjs"
+      "node_modules/nuxt/dist/app/entry.mjs",
+      "_useObserver-b327d869.mjs"
     ]
   },
   "pages/setting.vue": {
-    "file": "setting-45f63e41.mjs",
+    "file": "setting-4fb9efe5.mjs",
     "src": "pages/setting.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -75,7 +75,7 @@
     ]
   },
   "pages/test.vue": {
-    "file": "test-b07949e3.mjs",
+    "file": "test-764ae0b6.mjs",
     "src": "pages/test.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -83,7 +83,7 @@
     ]
   },
   "layouts/default.vue": {
-    "file": "default-6ca96aaf.mjs",
+    "file": "default-1c51a896.mjs",
     "src": "layouts/default.vue",
     "isDynamicEntry": true,
     "imports": [

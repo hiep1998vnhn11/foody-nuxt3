@@ -3,6 +3,7 @@
 /// <reference types="@pinia/nuxt" />
 /// <reference types="@nuxtjs/tailwindcss" />
 /// <reference types="unplugin-icons" />
+/// <reference types="@nuxt/image-edge" />
 /// <reference types="@nuxt/telemetry" />
 /// <reference types="nuxt" />
 /// <reference path="types/plugins.d.ts" />

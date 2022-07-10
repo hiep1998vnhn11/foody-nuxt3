@@ -55,12 +55,14 @@ onMounted(async () => {
           class="card max-w-sm rounded overflow-hidden shadow-lg"
           :ref="(value) => imageRef.push(value)"
         >
-          <img
+          <nuxt-img
             class="w-full"
-            v-lazy="item.image"
+            :src="item.image"
             alt="Sunset in the mountains"
             width="750"
             height="400"
+            placeholder
+            quality="80"
           />
           <div class="px-3 py-2">
             <div class="font-bold text-xl mb-2">
