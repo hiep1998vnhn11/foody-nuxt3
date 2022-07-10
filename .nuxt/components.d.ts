@@ -10,9 +10,9 @@ declare module 'vue' {
     'ActionSheetHeader': typeof import("../components/ActionSheet/Header.vue")['default'],
     'ActionSheetOverlay': typeof import("../components/ActionSheet/Overlay.vue")['default'],
     'ActionSheet': typeof import("../components/ActionSheet/index.vue")['default'],
+    'BuilderNavbar': typeof import("../components/Builder/Navbar.vue")['default'],
     'AppFooter': typeof import("../components/App/AppFooter.vue")['default'],
     'AppNav': typeof import("../components/App/AppNav.vue")['default'],
-    'BuilderNavbar': typeof import("../components/Builder/Navbar.vue")['default'],
     'NuxtWelcome': typeof import("../node_modules/@nuxt/ui-templates/dist/templates/welcome.vue")['default'],
     'NuxtLayout': typeof import("../node_modules/nuxt/dist/app/components/layout")['default'],
     'NuxtErrorBoundary': typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary")['default'],
@@ -30,9 +30,9 @@ declare module 'vue' {
     'LazyActionSheetHeader': typeof import("../components/ActionSheet/Header.vue")['default'],
     'LazyActionSheetOverlay': typeof import("../components/ActionSheet/Overlay.vue")['default'],
     'LazyActionSheet': typeof import("../components/ActionSheet/index.vue")['default'],
+    'LazyBuilderNavbar': typeof import("../components/Builder/Navbar.vue")['default'],
     'LazyAppFooter': typeof import("../components/App/AppFooter.vue")['default'],
     'LazyAppNav': typeof import("../components/App/AppNav.vue")['default'],
-    'LazyBuilderNavbar': typeof import("../components/Builder/Navbar.vue")['default'],
     'LazyNuxtWelcome': typeof import("../node_modules/@nuxt/ui-templates/dist/templates/welcome.vue")['default'],
     'LazyNuxtLayout': typeof import("../node_modules/nuxt/dist/app/components/layout")['default'],
     'LazyNuxtErrorBoundary': typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary")['default'],
@@ -52,9 +52,9 @@ export const ActionSheetBody: typeof import("../components/ActionSheet/Body.vue"
 export const ActionSheetHeader: typeof import("../components/ActionSheet/Header.vue")['default']
 export const ActionSheetOverlay: typeof import("../components/ActionSheet/Overlay.vue")['default']
 export const ActionSheet: typeof import("../components/ActionSheet/index.vue")['default']
+export const BuilderNavbar: typeof import("../components/Builder/Navbar.vue")['default']
 export const AppFooter: typeof import("../components/App/AppFooter.vue")['default']
 export const AppNav: typeof import("../components/App/AppNav.vue")['default']
-export const BuilderNavbar: typeof import("../components/Builder/Navbar.vue")['default']
 export const NuxtWelcome: typeof import("../node_modules/@nuxt/ui-templates/dist/templates/welcome.vue")['default']
 export const NuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/layout")['default']
 export const NuxtErrorBoundary: typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary")['default']
@@ -72,9 +72,9 @@ export const LazyActionSheetBody: typeof import("../components/ActionSheet/Body.
 export const LazyActionSheetHeader: typeof import("../components/ActionSheet/Header.vue")['default']
 export const LazyActionSheetOverlay: typeof import("../components/ActionSheet/Overlay.vue")['default']
 export const LazyActionSheet: typeof import("../components/ActionSheet/index.vue")['default']
+export const LazyBuilderNavbar: typeof import("../components/Builder/Navbar.vue")['default']
 export const LazyAppFooter: typeof import("../components/App/AppFooter.vue")['default']
 export const LazyAppNav: typeof import("../components/App/AppNav.vue")['default']
-export const LazyBuilderNavbar: typeof import("../components/Builder/Navbar.vue")['default']
 export const LazyNuxtWelcome: typeof import("../node_modules/@nuxt/ui-templates/dist/templates/welcome.vue")['default']
 export const LazyNuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/layout")['default']
 export const LazyNuxtErrorBoundary: typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary")['default']

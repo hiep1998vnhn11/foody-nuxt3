@@ -2622,7 +2622,7 @@ function defineNuxtLink(options) {
     }
   });
 }
-const __nuxt_component_0$3 = defineNuxtLink({ componentName: "NuxtLink" });
+const __nuxt_component_0$4 = defineNuxtLink({ componentName: "NuxtLink" });
 var shared_cjs_prod = {};
 Object.defineProperty(shared_cjs_prod, "__esModule", { value: true });
 function makeMap(str, expectsLowerCase) {
@@ -3744,7 +3744,7 @@ _sfc_main$r.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/SkeletonCard.vue");
   return _sfc_setup$r ? _sfc_setup$r(props, ctx) : void 0;
 };
-const __nuxt_component_1$2 = /* @__PURE__ */ _export_sfc(_sfc_main$r, [["ssrRender", _sfc_ssrRender$9]]);
+const __nuxt_component_0$3 = /* @__PURE__ */ _export_sfc(_sfc_main$r, [["ssrRender", _sfc_ssrRender$9]]);
 function useObserver(objectObserver) {
   const observer = vue_cjs_prod.ref(null);
   const unObserver = (value) => {
@@ -3880,7 +3880,7 @@ const _sfc_main$q = /* @__PURE__ */ vue_cjs_prod.defineComponent({
       items.value = await generateItems(40);
     });
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_SkeletonCard = __nuxt_component_1$2;
+      const _component_SkeletonCard = __nuxt_component_0$3;
       const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
       _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using mix CDN and static image</h2><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
@@ -4324,7 +4324,7 @@ const _sfc_main$o = /* @__PURE__ */ vue_cjs_prod.defineComponent({
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _component_nuxt_img = __nuxt_component_0$2;
-      const _component_SkeletonCard = __nuxt_component_1$2;
+      const _component_SkeletonCard = __nuxt_component_0$3;
       _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using CDN image</h2><div><div class="grid md:grid-cols-5 gap-2 grid-cols-2 sm:grid-cols-3"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
         _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg">`);
@@ -4401,20 +4401,16 @@ const _sfc_main$n = /* @__PURE__ */ vue_cjs_prod.defineComponent({
       items.value = await generateItems(40);
     });
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_nuxt_img = __nuxt_component_0$2;
-      const _component_SkeletonCard = __nuxt_component_1$2;
+      const _component_SkeletonCard = __nuxt_component_0$3;
+      const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
       _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using Static server image</h2><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
-        _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg">`);
-        _push(serverRenderer.exports.ssrRenderComponent(_component_nuxt_img, {
+        _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
           class: "w-full",
-          src: item.image,
           alt: "Sunset in the mountains",
           width: "750",
-          height: "400",
-          placeholder: ""
-        }, null, _parent));
-        _push(`<div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
+          height: "400"
+        }, serverRenderer.exports.ssrGetDirectiveProps(_ctx, _directive_lazy, item.image)))}><div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
         serverRenderer.exports.ssrRenderList(item.tags, (tag) => {
           _push(`<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> #${serverRenderer.exports.ssrInterpolate(tag)}</span>`);
         });
@@ -4813,7 +4809,7 @@ const _sfc_main$m = {
       ]
     });
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_NuxtLink = __nuxt_component_0$3;
+      const _component_NuxtLink = __nuxt_component_0$4;
       _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "font-sans antialiased bg-white dark:bg-black text-black dark:text-white grid min-h-screen place-content-center overflow-hidden" }, _attrs))} data-v-011aae6d><div class="fixed left-0 right-0 spotlight z-10" data-v-011aae6d></div><div class="max-w-520px text-center z-20" data-v-011aae6d><h1 class="text-8xl sm:text-10xl font-medium mb-8" data-v-011aae6d>${serverRenderer.exports.ssrInterpolate(__props.statusCode)}</h1><p class="text-xl px-8 sm:px-0 sm:text-4xl font-light mb-16 leading-tight" data-v-011aae6d>${serverRenderer.exports.ssrInterpolate(__props.description)}</p><div class="w-full flex items-center justify-center" data-v-011aae6d>`);
       _push(serverRenderer.exports.ssrRenderComponent(_component_NuxtLink, {
         to: "/",
@@ -5759,7 +5755,7 @@ const _sfc_main$e = /* @__PURE__ */ vue_cjs_prod.defineComponent({
       items.value = await generateItems(40);
     });
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_SkeletonCard = __nuxt_component_1$2;
+      const _component_SkeletonCard = __nuxt_component_0$3;
       const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
       _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using mix CDN and static image</h2><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
@@ -5834,7 +5830,7 @@ const _sfc_main$d = /* @__PURE__ */ vue_cjs_prod.defineComponent({
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _component_nuxt_img = __nuxt_component_0$2;
-      const _component_SkeletonCard = __nuxt_component_1$2;
+      const _component_SkeletonCard = __nuxt_component_0$3;
       _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using CDN image</h2><div><div class="grid md:grid-cols-5 gap-2 grid-cols-2 sm:grid-cols-3"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
         _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg">`);
@@ -5914,20 +5910,16 @@ const _sfc_main$c = /* @__PURE__ */ vue_cjs_prod.defineComponent({
       items.value = await generateItems(40);
     });
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_nuxt_img = __nuxt_component_0$2;
-      const _component_SkeletonCard = __nuxt_component_1$2;
+      const _component_SkeletonCard = __nuxt_component_0$3;
+      const _directive_lazy = vue_cjs_prod.resolveDirective("lazy");
       _push(`<div${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({ class: "container" }, _attrs))}><h1 class="text-bold text-3xl mb-2"> Nuxtapp Demo some card items with lazyload and intersection observer </h1><h2>This page was using Static server image</h2><div><div class="grid grid-cols-5 gap-2"><!--[-->`);
       serverRenderer.exports.ssrRenderList(items.value, (item) => {
-        _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg">`);
-        _push(serverRenderer.exports.ssrRenderComponent(_component_nuxt_img, {
+        _push(`<div class="card max-w-sm rounded overflow-hidden shadow-lg"><img${serverRenderer.exports.ssrRenderAttrs(vue_cjs_prod.mergeProps({
           class: "w-full",
-          src: item.image,
           alt: "Sunset in the mountains",
           width: "750",
-          height: "400",
-          placeholder: ""
-        }, null, _parent));
-        _push(`<div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
+          height: "400"
+        }, serverRenderer.exports.ssrGetDirectiveProps(_ctx, _directive_lazy, item.image)))}><div class="px-3 py-2"><div class="font-bold text-xl mb-2">${serverRenderer.exports.ssrInterpolate(item.name)}</div><p class="text-gray-700 text-base">${serverRenderer.exports.ssrInterpolate(item.description)}</p></div><div class="px-3 pt-2 pb-1"><!--[-->`);
         serverRenderer.exports.ssrRenderList(item.tags, (tag) => {
           _push(`<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> #${serverRenderer.exports.ssrInterpolate(tag)}</span>`);
         });
@@ -6102,7 +6094,7 @@ const _sfc_main$9 = /* @__PURE__ */ vue_cjs_prod.defineComponent({
     return (_ctx, _push, _parent, _attrs) => {
       const _component_IconUil58bars = __unplugin_components_0;
       const _component_IconUil58times = __unplugin_components_1;
-      const _component_NuxtLink = __nuxt_component_0$3;
+      const _component_NuxtLink = __nuxt_component_0$4;
       const _component_IconSimpleIcons58nuxtdotjs = __unplugin_components_2;
       const _component_icon_fa_solid58ellipsis_v = __unplugin_components_3;
       const _component_ClientOnly = __nuxt_component_1$1;
@@ -6242,7 +6234,7 @@ const _sfc_main$8 = /* @__PURE__ */ vue_cjs_prod.defineComponent({
     const href = vue_cjs_prod.toRef(props, "href");
     const to = vue_cjs_prod.toRef(props, "to");
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_NuxtLink = __nuxt_component_0$3;
+      const _component_NuxtLink = __nuxt_component_0$4;
       if (vue_cjs_prod.unref(to)) {
         _push(serverRenderer.exports.ssrRenderComponent(_component_NuxtLink, vue_cjs_prod.mergeProps({
           tag: "a",
@@ -6331,7 +6323,7 @@ const _sfc_main$7 = /* @__PURE__ */ vue_cjs_prod.defineComponent({
     const selectedStyle = vue_cjs_prod.computed(() => styles[props.type] || styles.primary);
     const selectedSize = vue_cjs_prod.computed(() => sizes[props.size] || sizes.lg);
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_NuxtLink = __nuxt_component_0$3;
+      const _component_NuxtLink = __nuxt_component_0$4;
       if (__props.to) {
         _push(serverRenderer.exports.ssrRenderComponent(_component_NuxtLink, vue_cjs_prod.mergeProps({
           tag: "a",
