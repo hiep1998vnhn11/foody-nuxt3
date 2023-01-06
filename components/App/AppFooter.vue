@@ -1,5 +1,3 @@
-<script lang="ts" setup></script>
-
 <template>
   <footer class="border-t lg:border-gray-900/10 dark:border-gray-50/[0.2]">
     <section
@@ -15,11 +13,6 @@
           >
             <span class="text-center md:text-right">
               design by <a href="https://aecomapp.com">Aecomapp</a>
-            </span>
-            <span
-              class="block bg-blue-500 rounded px-1 py-0.5 text-gray-200 text-xs"
-            >
-              Powered by <a href="https://nuxtjs.org">Nuxt</a>
             </span>
           </div>
         </div>
