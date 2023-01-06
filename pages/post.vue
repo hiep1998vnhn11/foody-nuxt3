@@ -47,11 +47,11 @@ onMounted(async () => {
     </h1>
     <h2>This page was using Static server image</h2>
     <div>
-      <div class="grid grid-cols-5 gap-2">
+      <div class="grid md:grid-cols-2 grid-cols-1 gap-2">
         <div
           v-for="item in items"
           :key="item.name"
-          class="card max-w-sm rounded overflow-hidden shadow-lg"
+          class="card rounded overflow-hidden shadow-lg"
           :ref="(value) => imageRef.push(value)"
         >
           <img

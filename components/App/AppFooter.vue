@@ -17,7 +17,7 @@
               design by <a href="https://aecomapp.com">Aecomapp</a>
             </span>
             <span
-              class="block bg-blue-500 rounded px-1 py-0.5 text-white text-xs"
+              class="block bg-blue-500 rounded px-1 py-0.5 text-gray-200 text-xs"
             >
               Powered by <a href="https://nuxtjs.org">Nuxt</a>
             </span>

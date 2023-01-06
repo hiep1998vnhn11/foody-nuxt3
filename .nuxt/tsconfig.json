@@ -6,7 +6,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "allowJs": true,
     "noEmit": true,
     "resolveJsonModule": true,
@@ -62,7 +62,7 @@
         "node_modules/nuxt/dist/app/compat/vue-demi"
       ],
       "pinia": [
-        "pinia/dist/pinia"
+        "node_modules/pinia/dist/pinia"
       ],
       "#image": [
         "node_modules/@nuxt/image-edge/dist/runtime"
@@ -76,9 +76,6 @@
       "#head/*": [
         "node_modules/nuxt/dist/head/runtime/*"
       ],
-      "#components": [
-        ".nuxt/components"
-      ],
       "#imports": [
         ".nuxt/imports"
       ],
@@ -87,11 +84,17 @@
       ],
       "#build/*": [
         ".nuxt/*"
+      ],
+      "#components": [
+        ".nuxt/components"
       ]
     }
   },
   "include": [
     "./nuxt.d.ts",
     "../**/*"
+  ],
+  "exclude": [
+    "../dist"
   ]
 }

@@ -1,6 +1,6 @@
-import { defineNuxtConfig } from 'nuxt'
 import IconsResolver from 'unplugin-icons/resolver'
 import UnpluginComponentsVite from 'unplugin-vue-components/vite'
+import { defineNuxtConfig } from 'nuxt/config'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({

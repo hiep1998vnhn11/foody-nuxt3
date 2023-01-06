@@ -7,16 +7,13 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    'IconBi:exclamationCircleFill': typeof import('~icons/bi/exclamation-circle-fill')['default']
+    'IconClarity:timesCircleSolid': typeof import('~icons/clarity/times-circle-solid')['default']
+    'IconClarity:timesLine': typeof import('~icons/clarity/times-line')['default']
     'IconFaSolid:ellipsisV': typeof import('~icons/fa-solid/ellipsis-v')['default']
-    'IconIon:appsOutline': typeof import('~icons/ion/apps-outline')['default']
-    'IconLa:language': typeof import('~icons/la/language')['default']
-    'IconMdi:githubFace': typeof import('~icons/mdi/github-face')['default']
+    'IconMdi:checkCircle': typeof import('~icons/mdi/check-circle')['default']
     'IconSimpleIcons:nuxtdotjs': typeof import('~icons/simple-icons/nuxtdotjs')['default']
     'IconUil:bars': typeof import('~icons/uil/bars')['default']
-    'IconUil:clock': typeof import('~icons/uil/clock')['default']
-    'IconUil:laptop': typeof import('~icons/uil/laptop')['default']
-    'IconUil:moon': typeof import('~icons/uil/moon')['default']
-    'IconUil:sun': typeof import('~icons/uil/sun')['default']
     'IconUil:times': typeof import('~icons/uil/times')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

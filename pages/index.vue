@@ -32,6 +32,7 @@ const imageRef = ref<any[]>([])
 const intersectionElementRef = ref<HTMLDivElement | null>(null)
 useObserver(imageRef)
 useScrollObserver(intersectionElementRef, async () => {
+  if (unref(items).length > 200) return
   items.value = [...items.value, ...(await generateItems(20))]
 })
 const items = ref<Item[]>([])
@@ -48,11 +49,11 @@ onMounted(async () => {
     </h1>
     <h2>This page was using CDN image</h2>
     <div>
-      <div class="grid md:grid-cols-5 gap-2 grid-cols-2 sm:grid-cols-3">
+      <div class="grid md:grid-cols-2 gap-2 grid-cols-1">
         <div
           v-for="item in items"
           :key="item.name"
-          class="card max-w-sm rounded overflow-hidden shadow-lg"
+          class="card rounded overflow-hidden shadow-lg"
           :ref="(value) => imageRef.push(value)"
         >
           <nuxt-img
